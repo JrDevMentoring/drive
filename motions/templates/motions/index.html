@@ -1,0 +1,19 @@
+<h1>Drive this community, Suggest a motion or vote on one!</h1>
+
+<form action="{% url 'motions:create' %}" method="post">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="Suggest" />
+</form>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% if motions_list %}
+    <ul>
+    {% for motion in motions_list %}
+        <li>{{ motion.suggestion_text }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Motions proposed yet.</p>
+{% endif %}
