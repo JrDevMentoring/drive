@@ -6,4 +6,4 @@ class Suggestion(models.Model):
   pub_date = models.DateTimeField('date published')
 
 class User(models.Model):
-  email: models.CharField
+  email = models.CharField

@@ -6,6 +6,9 @@ from django.utils import timezone
 from .models import Suggestion
 from .forms import SuggestionForm
 
+def home(request):
+  return render(request, 'motions/home.html')
+
 def index(request):
   form = SuggestionForm()
   motions_list = Suggestion.objects.order_by('-pub_date')
