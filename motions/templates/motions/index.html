@@ -11,7 +11,11 @@
 {% if motions_list %}
     <ul>
     {% for motion in motions_list %}
-        <li>{{ motion.suggestion_text }}</li>
+        <li>
+          <b>{{ motion.votes.count }}</b>
+          <p>{{ motion.suggestion_text }}</p>
+          <a href='{% url 'motions:vote' motion_pk=motion.pk %}'>Support</a>
+        </li>
     {% endfor %}
     </ul>
 {% else %}

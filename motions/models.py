@@ -1,6 +1,6 @@
 from django.db import models
+from vote.models import VoteModel
 
-class Suggestion(models.Model):
+class Suggestion(VoteModel, models.Model):
   suggestion_text = models.CharField(max_length=500)
-  votes = models.IntegerField(default=0)
   pub_date = models.DateTimeField('date published')

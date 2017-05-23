@@ -33,3 +33,15 @@ def create(request):
     return HttpResponseRedirect(reverse('motions:index'))
   else:
     return HttpResponseRedirect(reverse('home'))
+
+def vote(request, motion_pk):
+  print(motion_pk)
+  if request.user.is_authenticated():
+    # pk = request.GET.get('motions_pk', '')
+    motion = Suggestion.objects.get(pk=motion_pk)
+    user = request.user
+    print(user.id)
+    motion.votes.up(user.id)
+    return HttpResponseRedirect(reverse('motions:index'))
+  else:
+    return HttpResponseRedirect(reverse('home'))
