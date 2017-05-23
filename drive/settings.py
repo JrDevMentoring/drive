@@ -101,6 +101,12 @@ AUTH_PASSWORD_VALIDATORS = [
 SLACK_CLIENT_ID = os.environ.get('SLACK_CLIENT_ID')
 SLACK_CLIENT_SECRET = os.environ.get('SLACK_CLIENT_SECRET')
 SLACK_SCOPE = 'admin,bot'
+SLACK_SUCCESS_REDIRECT_URL = '/motions'
+
+SLACK_PIPELINES = [
+    'drive.pipelines.register_user',
+    'drive.pipelines.debug_oauth_request',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
