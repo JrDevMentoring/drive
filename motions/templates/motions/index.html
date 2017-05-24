@@ -6,15 +6,7 @@
   <input type="submit" value="Suggest" />
 </form>
 
-{% if messages %}
-<div class="span12">
-{% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">
-        {{ message|safe }}
-    </div>
-{% endfor %}
-</div>
-{% endif %}
+{% include 'motions/_alert_messages.html' %}
 
 {% if motions_list %}
     <ul>
