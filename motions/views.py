@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib import messages
 
 from .models import Suggestion
 from .forms import SuggestionForm
@@ -16,6 +17,7 @@ def index(request):
     context = { 'motions_list': motions_list, 'form': form }
     return render(request, 'motions/index.html', context)
   else:
+    messages.error(request, 'Kindly login via slack before continuing.')
     return HttpResponseRedirect(reverse('home'))
 
 def create(request):
@@ -29,9 +31,11 @@ def create(request):
         # process the data in form.cleaned_data as required
         suggestion_text = form.cleaned_data['suggestion_text']
         Suggestion.objects.create(suggestion_text=suggestion_text, pub_date=timezone.now())
+        messages.success(request, 'Thank you, the suggesting has been successfully captured.')
 
     return HttpResponseRedirect(reverse('motions:index'))
   else:
+    messages.error(request, 'Kindly login via slack before continuing.')
     return HttpResponseRedirect(reverse('home'))
 
 def vote(request, motion_pk):
@@ -42,6 +46,8 @@ def vote(request, motion_pk):
     user = request.user
     print(user.id)
     motion.votes.up(user.id)
+    messages.success(request, 'Thanks for the vote.')
     return HttpResponseRedirect(reverse('motions:index'))
   else:
+    messages.error(request, 'Kindly login via slack before continuing.')
     return HttpResponseRedirect(reverse('home'))
