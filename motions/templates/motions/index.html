@@ -1,5 +1,7 @@
 <h1>Drive this community, Suggest a motion or vote on one!</h1>
 
+<a href='{% url 'motions:signout' %}'>Logout</a>
+
 <form action="{% url 'motions:create' %}" method="post">
   {% csrf_token %}
   {{ form }}

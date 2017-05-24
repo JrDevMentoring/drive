@@ -3,11 +3,14 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth import logout
 
 from .models import Suggestion
 from .forms import SuggestionForm
 
 def home(request):
+  if request.user.is_authenticated():
+    return HttpResponseRedirect(reverse('motions:index'))
   return render(request, 'motions/home.html')
 
 def index(request):
@@ -51,3 +54,9 @@ def vote(request, motion_pk):
   else:
     messages.error(request, 'Kindly login via slack before continuing.')
     return HttpResponseRedirect(reverse('home'))
+
+def signout(request):
+  if request.user.is_authenticated():
+    logout(request)
+  messages.success(request, 'Thanks for being part of this community!')
+  return HttpResponseRedirect(reverse('home'))

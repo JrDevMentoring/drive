@@ -105,8 +105,9 @@ SLACK_SCOPE = 'admin,bot'
 SLACK_SUCCESS_REDIRECT_URL = '/motions'
 
 SLACK_PIPELINES = [
-    'drive.pipelines.register_user',
     'drive.pipelines.debug_oauth_request',
+    'drive.pipelines.register_user',
+    'drive.pipelines.log_user_in',
 ]
 
 # Internationalization
