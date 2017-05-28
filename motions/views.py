@@ -8,20 +8,16 @@ from django.contrib.auth import logout
 from .models import Suggestion
 from .forms import SuggestionForm
 
-def home(request):
+def login(request):
   if request.user.is_authenticated():
     return HttpResponseRedirect(reverse('motions:index'))
-  return render(request, 'motions/home.html')
+  return render(request, 'motions/login.html')
 
 def index(request):
-  if request.user.is_authenticated():
-    form = SuggestionForm()
-    motions_list = Suggestion.objects.order_by('-pub_date')
-    context = { 'motions_list': motions_list, 'form': form }
-    return render(request, 'motions/index.html', context)
-  else:
-    messages.error(request, 'Kindly login via slack before continuing.')
-    return HttpResponseRedirect(reverse('home'))
+  form = SuggestionForm()
+  motions_list = Suggestion.objects.order_by('-pub_date')
+  context = { 'motions_list': motions_list, 'form': form }
+  return render(request, 'motions/index.html', context)
 
 def create(request):
   if request.user.is_authenticated():
@@ -39,7 +35,7 @@ def create(request):
     return HttpResponseRedirect(reverse('motions:index'))
   else:
     messages.error(request, 'Kindly login via slack before continuing.')
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('login'))
 
 def vote(request, motion_pk):
   print(motion_pk)
@@ -53,10 +49,10 @@ def vote(request, motion_pk):
     return HttpResponseRedirect(reverse('motions:index'))
   else:
     messages.error(request, 'Kindly login via slack before continuing.')
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('login'))
 
 def signout(request):
   if request.user.is_authenticated():
     logout(request)
   messages.success(request, 'Thanks for being part of this community!')
-  return HttpResponseRedirect(reverse('home'))
+  return HttpResponseRedirect(reverse('login'))

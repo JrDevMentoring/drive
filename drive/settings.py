@@ -31,6 +31,7 @@ INSTALLED_APPS = [
   'django.contrib.messages',
   'django.contrib.staticfiles',
   'django_slack_oauth',
+  'bootstrap3',
   'motions.apps.MotionsConfig',
   'vote',
 ]

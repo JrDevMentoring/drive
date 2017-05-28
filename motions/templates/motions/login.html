@@ -1,0 +1,27 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<div class="container">
+
+</div>
+
+<div class='container'>
+  {% include 'motions/_alert_messages.html' %}
+
+  <!-- Centrally place this div: -->
+  <div class="jumbotron d-flex align-items-center">
+    <div class="row">
+      <div class="text-center col-md-4 col-md-offset-4">
+        {% buttons %}
+          <a href='{% url 'slack_auth' %}' class="btn btn-primary">
+            {% bootstrap_icon "menu-hamburger" %} Log in via the JrDevMentoring Slack
+          </a>
+        {% endbuttons %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,24 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
 <h1>Drive this community, Suggest a motion or vote on one!</h1>
 
-<a href='{% url 'motions:signout' %}'>Logout</a>
+{% if user.is_authenticated %}
+  <a href='{% url 'motions:signout' %}'>Logout</a>
+{% endif %}
 
 <form action="{% url 'motions:create' %}" method="post">
   {% csrf_token %}
-  {{ form }}
-  <input type="submit" value="Suggest" />
+  {% bootstrap_form form layout='inline' %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "star" %} Vote
+    </button>
+  {% endbuttons %}
 </form>
 
 {% include 'motions/_alert_messages.html' %}
