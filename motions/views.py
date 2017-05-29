@@ -55,4 +55,4 @@ def signout(request):
   if request.user.is_authenticated():
     logout(request)
   messages.success(request, 'Thanks for being part of this community!')
-  return HttpResponseRedirect(reverse('login'))
+  return HttpResponseRedirect(reverse('index'))

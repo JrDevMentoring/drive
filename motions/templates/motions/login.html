@@ -5,6 +5,11 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
+{# Load statics #}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'motions/style.css' %}" />
+
+{% include 'motions/_background_img.html' %}
 <div class="container">
 
 </div>
