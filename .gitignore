@@ -1,2 +1,7 @@
 /db.sqlite3
 */__pycache__/*
+venv
+*.pyc
+staticfiles
+.env
+*/local_settings.py
