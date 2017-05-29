@@ -17,6 +17,7 @@ ALLOWED_HOSTS = ['*']
 DEBUG = False
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Application definition
 
