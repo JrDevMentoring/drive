@@ -3,40 +3,54 @@
 
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
-{% bootstrap_javascript %}
 
 {# Load statics #}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'motions/style.css' %}" />
 
-<h1>Drive this community, Suggest a motion or vote on one!</h1>
-
-{% if user.is_authenticated %}
-  <a href='{% url 'motions:signout' %}'>Logout</a>
-{% endif %}
-
-<form action="{% url 'motions:create' %}" method="post">
-  {% csrf_token %}
-  {% bootstrap_form form layout='inline' %}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">
-      {% bootstrap_icon "star" %} Vote
-    </button>
-  {% endbuttons %}
-</form>
 
 {% include 'motions/_alert_messages.html' %}
 
-{% if motions_list %}
-    <ul>
-    {% for motion in motions_list %}
-        <li>
-          <b>{{ motion.votes.count }}</b>
-          <p>{{ motion.suggestion_text }}</p>
-          <a href='{% url 'motions:vote' motion_pk=motion.pk %}'>Support</a>
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No Motions proposed yet.</p>
-{% endif %}
+<div class="container">
+  <h1 class="text-center header">Drive this community, Suggest a motion or vote on one!</h1>
+
+  {% if user.is_authenticated %}
+    <div class="text-right"><a href='{% url 'motions:signout' %}'>Logout</a></div>
+  {% endif %}
+
+  <form action="{% url 'motions:create' %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form layout='inline' %}
+    <div class="text-center">
+      {% buttons %}
+        <button type="submit" class="btn btn-primary">
+          {% bootstrap_icon "star" %} Suggest
+        </button>
+      {% endbuttons %}
+    </div>
+  </form>
+
+  <div class="motions">
+    {% if motions_list %}
+      {% for motion in motions_list %}
+        <div class="row">
+          <div class="col-sm-1">
+            <b>
+              <a href='{% url 'motions:vote' motion_pk=motion.pk %}'>
+                {% bootstrap_icon "arrow-up" %} {{ motion.votes.count }}
+              </a>
+            </b>
+          </div>
+          <div class="col-sm-11">
+            <p>{{ motion.suggestion_text }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No Motions proposed yet.</p>
+    {% endif %}
+  </div>
+
+</div>
+
+

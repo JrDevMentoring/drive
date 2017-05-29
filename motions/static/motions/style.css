@@ -1,3 +1,12 @@
-li a {
-  color: green;
+a {
+  color: green !important;
+  text-decoration: none !important;
+}
+
+.row {
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-bottom: thin solid lightgrey;
+  font-size: 1.3em;
+  font-family: Sans-Serif;
 }
